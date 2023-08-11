@@ -1,26 +1,41 @@
 import React from 'react';
-import './App.css';
-import logo from './logo.svg';
+import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
+import { GlobalStyle } from './styles/GlobalStyle';
+import Main from './views/main/containers/MainContainer';
+import NotFound from './views/shared/notFound/NotFound';
+
 
 function App() {
+  const { userInfo } = useSelector((state) => state.common);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React1
-        </a>
-      </header>
-    </div>
+    <Container>
+      <GlobalStyle />
+      <Routes>
+          <Route exact path="/" element={<Main />} />
+          {/* <Route path="/view/:id" element={< />} /> */}
+
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+    </Container>
   );
 }
+const Container = styled.div`
+  width: 100%;
+  padding: 20px;
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+  `;
 
 export default App;
